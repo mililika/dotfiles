@@ -1,5 +1,5 @@
 return {
-  "snacks.nvim",
+  "folke/snacks.nvim",
   opts = {
     indent = { enabled = true },
     input = { enabled = true },
@@ -9,6 +9,24 @@ return {
     statuscolumn = { enabled = false }, -- we set this in options.lua
     toggle = { map = LazyVim.safe_keymap_set },
     words = { enabled = true },
+    -- explorer = {
+    --   enabled = true,
+    -- },
+    -- picker = {
+    --   enabled = true,
+    --   sources = {
+    --     explorer = {
+    --       win = {
+    --         list = {
+    --           wo = {
+    --             number = true,
+    --             relativenumber = true,
+    --           },
+    --         },
+    --       },
+    --     },
+    --   },
+    -- },
   },
   -- stylua: ignore
   keys = {

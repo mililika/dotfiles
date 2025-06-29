@@ -13,3 +13,5 @@ vim.lsp.handlers["window/showMessage"] = function() end
 vim.lsp.handlers["window/logMessage"] = function() end
 
 vim.lsp.inlay_hint.enable(false)
+
+vim.opt.autoread = true
