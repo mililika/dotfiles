@@ -14,3 +14,5 @@ vim.lsp.handlers["window/logMessage"] = function() end
 vim.lsp.inlay_hint.enable(false)
 
 vim.opt.autoread = true
+
+vim.g.disable_dap = true
