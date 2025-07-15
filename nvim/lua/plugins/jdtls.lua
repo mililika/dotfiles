@@ -12,7 +12,7 @@ return {
       elseif is_mac then
         vim.env.JAVA_HOME = "/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home"
       end
-
+      
       -- Set Java runtime paths based on OS
       local java_runtimes = {}
       if is_mac then
@@ -40,7 +40,24 @@ return {
           },
         }
       end
-
+      
+      -- ADD THE FIX HERE:
+      -- Force the correct root directory
+      opts.root_dir = function(fname)
+        local util = require("lspconfig.util")
+        local settings_gradle = util.root_pattern("settings.gradle", "settings.gradle.kts")(fname)
+        if settings_gradle then
+          return settings_gradle
+        end
+        return util.root_pattern("PnlEngine2Api", "SVSoftware", "TraderServer")(fname)
+      end
+      
+      -- Set unique workspace directory
+      local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+      opts.cmd = vim.list_extend(opts.cmd or {}, {
+        '-data', os.getenv('HOME') .. '/.cache/jdtls-workspace/' .. project_name
+      })
+      
       opts.settings = vim.tbl_deep_extend("force", opts.settings or {}, {
         java = {
           inlayHints = {
