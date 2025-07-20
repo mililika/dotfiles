@@ -1,0 +1,267 @@
+"" .ideavimrc - magidc
+"" https://github.com/magidc/dotfiles/blob/master/jetbrains/ideavimrc
+
+"" Settings ========================================================
+set scrolloff=10
+set number
+set relativenumber
+set showmode
+set showcmd
+set smartcase
+set incsearch
+set hlsearch
+set visualbell
+set clipboard+=unnamed
+set clipboard+=unnamedplus
+set notimeout
+set ttimeout
+set ttimeoutlen=50
+let mapleader = " "
+
+"" Choosing handlers in conflicting IDE/IdeaVim keymaps =======
+sethandler <c-i> n-v-i:vim
+sethandler <c-o> n-v-i:vim
+sethandler <c-d> n-v-i:vim
+sethandler <c-u> n-v-i:vim
+sethandler <c-h> n-v-i:vim
+sethandler <c-j> n-v-i:vim
+sethandler <c-k> n-v-i:vim
+sethandler <c-l> n-v-i:vim
+sethandler <c-a-d> n-v-i:vim
+
+" source
+map <leader>9 :source ~/.ideavimrc<cr>
+
+"" Key mappings ====================================================
+" NORMAL MODE
+" Edit 
+" nnoremap d "_d
+" nnoremap D "_D
+" nnoremap dd "_dd
+nnoremap ciw "_ciw
+nnoremap caw "_caw
+nnoremap C "_C
+nnoremap cc "_cc
+nnoremap Y y$
+
+"-- Replace word with paste
+nnoremap <a-p> "_diwP
+"-- Replace line with paste
+nnoremap <a-s-p> "_ddP"
+
+nnoremap <a-d> "_diw
+nnoremap <a-c> "_ciw
+nnoremap <a-s-d> ]b[w"_d]w
+nnoremap <a-s-c> ]b[w"_c]w
+nnoremap <a-z> "_ci"
+nnoremap <a-x> "_ci(
+
+"--  Method text objects operation replacement
+"--- Custom mapping, no plugins
+" nnoremap vam j:action MethodUp<cr>0v]M
+" nnoremap vim j:action MethodUp<cr>]m<cr>v]M<bs>
+" nnoremap dam j:action MethodUp<cr>0v]M"_d
+" nnoremap dim j:action MethodUp<cr>]m<cr>v]M<bs>"_d
+" nnoremap yam j:action MethodUp<cr>0v]My
+" nnoremap yim j:action MethodUp<cr>]m<cr>v]M<bs>y
+" nnoremap cam j:action MethodUp<cr>0v]M"_c
+" nnoremap cim j:action MethodUp<cr>]m<cr>v]M<bs>"_c
+
+"-- New line in normal mode
+nnoremap <a-o> mao<ESC>`a
+nnoremap <a-s-o> maO<ESC>`a
+
+" Motions
+nnoremap H ^
+nnoremap L $
+nnoremap W [w
+nnoremap B [b
+nnoremap E ]w
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzz
+nnoremap N Nzz
+
+
+"--  Class motions
+if &ide =~? 'intellij'
+  "--- Previous class opening
+  nnoremap [c 0?\<class\> <cr>f{:nohlsearch<cr>  
+  "--- Next class opening
+  nnoremap ]c $/\<class\> <cr>f{:nohlsearch<cr>
+  "--- Previous class closing
+  nnoremap [C $?\<class\> <cr>nf{%:nohlsearch<cr>
+  "--- Next class closing
+  nnoremap ]C 0/\<class\> <cr>f{%:nohlsearch<cr>
+endif
+
+nnoremap <C-o> :action Back<cr>
+nnoremap <C-i> :action Forward<cr>
+
+" Window navigation
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k  
+nnoremap <c-l> <c-w>l
+nnoremap <a-t> :action NewScratchFile<cr>
+nnoremap <leader>wv :action SplitVertically<cr>
+nnoremap <leader>wh :action SplitHorizontally<cr>
+nnoremap <leader>wu :action Unsplit<cr>
+nnoremap <leader>wp :action MoveEditorToOppositeTabGroup<cr>
+nnoremap <leader>wn :action EditSourceInNewWindow<cr>
+nnoremap <leader>wt :action HideAllWindows<cr>
+map [t :action PreviousTab<cr>
+map ]t :action NextTab<cr>
+map <leader>tx :action CloseContent<cr>
+map <leader>tq :action CloseAllEditorsButActive<cr>
+
+" Folds
+nnoremap - :action ExpandAllRegions<cr>
+nnoremap za :action ExpandCollapseToggleAction<cr>
+nnoremap | :action ExpandCollapseToggleAction<cr>
+
+" Macros and registers
+"--  Execute macro saved in 'q' register
+nnoremap qj @q
+nnoremap t "_
+
+" Find (leader f)
+map <leader>fc :action GotoClass<cr>
+map <leader>ff :action GotoFile<cr>
+map <leader>fs :action GotoSymbol<cr>
+map <leader>fa :action GotoAction<cr>
+map <leader>fp :action ManageRecentProjects<cr>
+map <leader>fh :action RecentFiles<cr>
+map <leader>fm :action RecentLocations<cr>
+map <leader>fd :action Find<cr>
+map <leader>fD :action FindInPath<cr>
+map <leader>fr :action Replace<cr>
+map <leader>fR :action ReplaceInPath<cr>
+map <leader>ft :action ActivateTODOToolWindow<cr>
+map <leader>fe :action ActivateProjectToolWindow<cr>
+
+" Views (leader v)
+map <leader>vp :action ActivateProblemsViewToolWindow<cr>
+mvp <leader>vm :action ActivateStructureToolWindow<cr>
+map <leader>vt :action ActivateTerminalToolWindow<cr>
+map <leader>vv :action ActivateServicesToolWindow<cr>
+map <leader>vd :action ActivateDebugToolWindow<cr>
+map <leader>vo :action ActivateTODOToolWindow<cr>
+map <leader>vc :action ActivateGitHubCopilotChatToolWindow<cr>
+map <leader>vi :action ActivateBookmarksToolWindow<cr>
+map <leader>vg :action ActivateGradleToolWindow<cr>
+map <leader>vb :action ActivateDatabaseToolWindow<cr>
+map <leader>vs :action ShowSettings<cr>
+map <leader>vj :action ShowProjectStructureSettings<cr>
+map <leader>vq :action CloseActiveTab<cr>
+
+
+" Debug (leader d)
+nnoremap <leader>de :action Debug<cr>
+nnoremap <leader>dE :action ChooseDebugConfiguration<cr>
+nnoremap <leader>dr :action Run<cr>
+nnoremap <leader>dR :action ChooseRunConfiguration<cr>
+nnoremap <leader>dk :action Stop<cr>
+nnoremap <leader>db :action ToggleLineBreakpoint<cr>
+nnoremap <leader>dm :action XDebugger.MuteBreakpoints<cr>
+nnoremap <leader>dd :action Debugger.RemoveAllBreakpoints<cr>
+nnoremap <leader>ds :action ViewBreakpoints<cr>
+nnoremap <leader>dv :action StepOver<cr>
+nnoremap <leader>di :action StepInto<cr>e
+nnoremap <leader>do :action StepOut<cr>
+nnoremap <leader>dc :action Resume<cr>
+map <leader>dx :action QuickEvaluateExpression<cr>
+map <leader>dt :action EvaluateExpression<cr>
+map <leader>dw :action Debugger.AddToWatch<cr>
+
+" Code navigation (leader c)
+nnoremap <leader>ct :action GotoTypeDeclaration<cr>
+nnoremap <leader>ci :action GotoImplementation<cr>
+nnoremap <leader>cs :action GotoSuperMethod<cr>
+nnoremap <leader>cu :action ShowUsages<cr>
+nnoremap <leader>cr :action HighlightUsagesInFile<cr>
+nnoremap <leader>cv :action QuickJavaDoc<cr>
+nnoremap <leader>cc :action CallHierarchy<CR>  
+nnoremap <leader>cn :action ShowNavBar<CR>
+nnoremap <leader>cx :action FileStructurePopup<CR> 
+nnoremap <leader>cb :action CompileDirty<CR> 
+nnoremap <leader>cm :action ExternalSystem.ProjectRefreshAction<CR> 
+nnoremap <leader>cp :action ParameterInfo<CR>
+nnoremap <leader>ca :action ShowIntentionActions<cr>
+
+" Refactoring (leader r)
+map <leader>re :action Refactorings.QuickListPopupAction<CR>
+map <leader>rn :action RenameElement<cr>
+map <leader>rv :action IntroduceVariable<cr>
+map <leader>rc :action IntroduceConstant<cr>
+map <leader>rf :action IntroduceField<cr>
+map <leader>rp :action IntroduceParameter<cr>
+map <leader>rx :action ExtractMethod<cr>
+map <leader>rf :action ReformatCode<cr>:action RearrangeCode<cr>:action OptimizeImports<cr>
+map <leader>ro :action OptimizeImports<cr>
+map <leader>ri :action Inline<cr>
+map <leader>rs :action ChangeSignature<cr>
+map <leader>ra :action AnonymousToInner<cr>
+map <leader>rm :action Move<cr>
+
+" Source generation (leader s)
+nnoremap <leader>sa :action Generate<CR>
+nnoremap <leader>sc :action GenerateConstructor<cr>
+nnoremap <leader>sg :action GenerateGetterAndSetter<cr>
+nnoremap <leader>se :action GenerateEquals<cr>
+nnoremap <leader>so :action OverrideMethods<cr>
+
+" To check ide name run :echo &ide
+if &ide =~? 'intellij'
+  nnoremap <leader>sn :action NewClass<cr>
+elseif &ide =~? 'pycharm'
+  nnoremap <leader>sn :action NewPythonFile<cr>
+elseif &ide =~? 'rustrover'
+  nnoremap <leader>sn :action Rust.NewRustFile<cr>
+endif
+nnoremap <leader>sf :action NewFile<cr>
+
+" Diagnostics/errors
+map ]d :action GotoNextError<cr>
+map [d :action GotoPreviousError<cr>
+map <leader>ed :action ShowErrorDescription<cr>
+
+" Git (leader g)
+map <leader>gd :action Compare.LastVersion<cr>
+map <leader>gD :action Compare.Selected<cr>
+map <leader>gn :action VcsShowNextChangeMarker<cr>
+map <leader>gp :action VcsShowPrevChangeMarker<cr>
+map <leader>gr :action Vcs.RollbackChangedLines<cr>
+map ]h :action NextDiff<cr>
+map [h :action PreviousDiff<cr>
+map <leader>ge :action EditSource<cr>
+
+map <leader>gc :action CheckinProject<cr>
+map <leader>gg :action Vcs.Show.Local.Changes<cr>
+map <leader>gv :action ActivateVersionControlToolWindow<cr>
+map <leader>gP :action Vcs.Push<cr>
+
+" Display Modes (leader m)
+map <leader>md :action ToggleDistractionFreeMode<cr>
+map <leader>mf :action ToggleFullScreen<cr>
+nnoremap <leader>mz :action MaximizeEditorInSplit<CR>
+
+" INSERT MODE
+inoremap jk <Esc>
+
+" VISUAL MODE
+"--  Easy visual indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" Plugin Settings ==================================================
+set matchit
+set commentary
+set surround
+set nerdtree
+set argtextobj
+set ideajoin
+set ideamarks
+set highlightedyank
+
+" todo: open settings
